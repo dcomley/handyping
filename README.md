@@ -9,6 +9,13 @@ Never forget another licence renewal - Simple SMS + email reminder tool for sole
 - 🌐 Simple web-based dashboard (no app installation)
 - 🔧 Built for tradies - licenses, insurance, certifications
 - 💳 Stripe-powered billing ($9/month, 30-day free trial)
+- **Phone-based Authentication**: Simple SMS verification for login
+- **Reminder Management**: Create, edit, and delete reminders
+- **Notification Options**: Choose between SMS and email notifications
+- **Dashboard**: View upcoming and expiring reminders at a glance
+- **SQLite Database**: Simple, file-based database
+- **Stripe Subscriptions**: $9/month subscription with Stripe Checkout
+- **Test Email**: Built-in tool to test Mailgun configuration
 
 ## Tech Stack
 
@@ -82,9 +89,11 @@ php artisan db:seed
 npm run build
 ```
 
-## Development
+6. **Set up Stripe (for subscriptions)**:
+   - See [STRIPE_SETUP.md](STRIPE_SETUP.md) for detailed instructions
+   - Add your Stripe keys to `.env`
 
-1. Run the Laravel development server:
+7. **Start the development server**:
 ```bash
 php artisan serve
 ```

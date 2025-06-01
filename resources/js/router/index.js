@@ -6,11 +6,16 @@ import AddReminder from '../pages/AddReminder.vue';
 import EditReminder from '../pages/EditReminder.vue';
 import Login from '../pages/Login.vue';
 import TestEmail from '../pages/TestEmail.vue';
+import Subscription from '../pages/Subscription.vue';
+import SubscriptionSuccess from '../pages/SubscriptionSuccess.vue';
+import Landing from '../pages/Landing.vue';
 
 const routes = [
   {
     path: '/',
-    redirect: '/dashboard'
+    name: 'landing',
+    component: Landing,
+    meta: { guest: true }
   },
   {
     path: '/login',
@@ -41,6 +46,18 @@ const routes = [
     name: 'test-email',
     component: TestEmail,
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/subscription',
+    name: 'subscription',
+    component: Subscription,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/subscription/success',
+    name: 'subscription-success',
+    component: SubscriptionSuccess,
+    meta: { requiresAuth: true }
   }
 ];
 
@@ -53,9 +70,12 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.getItem('auth_token');
   
-  if (to.meta.requiresAuth && !isAuthenticated) {
+  // Redirect authenticated users from landing to dashboard
+  if (to.name === 'landing' && isAuthenticated) {
+    next('/dashboard');
+  } else if (to.meta.requiresAuth && !isAuthenticated) {
     next('/login');
-  } else if (to.meta.guest && isAuthenticated) {
+  } else if (to.meta.guest && isAuthenticated && to.name !== 'landing') {
     next('/dashboard');
   } else {
     next();

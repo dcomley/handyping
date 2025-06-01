@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ReminderApiController;
 use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\DashboardApiController;
 use App\Http\Controllers\Api\TestEmailController;
+use App\Http\Controllers\Api\SubscriptionApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,13 @@ Route::middleware('auth:sanctum')->group(function () {
     
     // Test email
     Route::post('/test-email', [TestEmailController::class, 'sendTestEmail']);
+    
+    // Subscription routes
+    Route::get('/subscription/status', [SubscriptionApiController::class, 'status']);
+    Route::post('/subscription/checkout', [SubscriptionApiController::class, 'checkout']);
+    Route::post('/subscription/cancel', [SubscriptionApiController::class, 'cancel']);
+    Route::post('/subscription/resume', [SubscriptionApiController::class, 'resume']);
+    Route::post('/subscription/billing-portal', [SubscriptionApiController::class, 'billingPortal']);
     
     // Logout
     Route::post('/logout', [AuthApiController::class, 'logout']);

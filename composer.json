@@ -14,7 +14,8 @@
         "stripe/stripe-php": "^10.0",
         "guzzlehttp/psr7": "^2.7",
         "php-http/guzzle7-adapter": "^1.1",
-        "php-http/discovery": "^1.20"
+        "php-http/discovery": "^1.20",
+        "laravel/cashier": "^14.0"
     },
     "require-dev": {
         "laravel/pint": "^1.0",

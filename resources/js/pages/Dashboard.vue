@@ -6,6 +6,9 @@
         <div class="flex justify-between items-center py-6">
           <h1 class="text-2xl font-bold text-gray-900">HandyPing</h1>
           <div class="flex items-center space-x-4">
+            <button @click="goToSubscription" class="text-sm text-gray-600 hover:text-gray-900">
+              Subscription
+            </button>
             <button @click="goToTestEmail" class="text-sm text-gray-600 hover:text-gray-900">
               Test Email
             </button>
@@ -127,6 +130,10 @@ export default {
       }
     };
 
+    const goToSubscription = () => {
+      router.push('/subscription');
+    };
+
     const goToTestEmail = () => {
       router.push('/test-email');
     };
@@ -142,6 +149,7 @@ export default {
       addReminder,
       editReminder,
       logout,
+      goToSubscription,
       goToTestEmail
     };
   }
