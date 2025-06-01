@@ -20,14 +20,24 @@ class DashboardController extends Controller
             ->whereRaw('DATEDIFF(expiry_date, CURDATE()) <= alert_days_before')
             ->orderBy('expiry_date', 'asc')
             ->take(5)
-            ->get();
+            ->get()
+            ->map(function ($reminder) {
+                $reminder->days_left = Carbon::now()->diffInDays(Carbon::parse($reminder->expiry_date), false);
+                $reminder->lead_time = $reminder->alert_days_before;
+                return $reminder;
+            });
         
         // Get upcoming reminders
         $upcomingReminders = $user->reminders()
             ->whereRaw('DATEDIFF(expiry_date, CURDATE()) > alert_days_before')
             ->orderBy('expiry_date', 'asc')
             ->take(10)
-            ->get();
+            ->get()
+            ->map(function ($reminder) {
+                $reminder->days_until_expiry = Carbon::now()->diffInDays(Carbon::parse($reminder->expiry_date), false);
+                $reminder->lead_time = $reminder->alert_days_before;
+                return $reminder;
+            });
         
         // Get stats
         $totalReminders = $user->reminders()->count();
@@ -36,11 +46,20 @@ class DashboardController extends Controller
             ->whereYear('expiry_date', Carbon::now()->year)
             ->count();
         
-        return view('dashboard', compact(
-            'expiringSoon',
-            'upcomingReminders',
-            'totalReminders',
-            'expiringThisMonth'
-        ));
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'user' => [
+                    'name' => $user->name ?? 'User',
+                    'phone' => $user->phone
+                ],
+                'expiring_soon' => $expiringSoon,
+                'upcoming_reminders' => $upcomingReminders,
+                'stats' => [
+                    'total_reminders' => $totalReminders,
+                    'expiring_this_month' => $expiringThisMonth
+                ]
+            ]
+        ]);
     }
 } 

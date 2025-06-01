@@ -18,7 +18,8 @@
         "vue": "^3.3.9"
     },
     "dependencies": {
-        "vue-router": "^4.2.5",
-        "date-fns": "^2.30.0"
+        "date-fns": "^2.30.0",
+        "moment": "^2.30.1",
+        "vue-router": "^4.2.5"
     }
-} 
+}

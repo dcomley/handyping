@@ -44,8 +44,11 @@ class ReminderController extends Controller
 
         $reminder = Auth::user()->reminders()->create($validated);
 
-        return redirect()->route('dashboard')
-            ->with('success', 'Reminder created successfully!');
+        return response()->json([
+            'success' => true,
+            'message' => 'Reminder created successfully!',
+            'reminder' => $reminder
+        ], 201);
     }
 
     /**
@@ -76,8 +79,11 @@ class ReminderController extends Controller
 
         $reminder->update($validated);
 
-        return redirect()->route('dashboard')
-            ->with('success', 'Reminder updated successfully!');
+        return response()->json([
+            'success' => true,
+            'message' => 'Reminder updated successfully!',
+            'reminder' => $reminder
+        ]);
     }
 
     /**
@@ -89,7 +95,9 @@ class ReminderController extends Controller
         
         $reminder->delete();
 
-        return redirect()->route('dashboard')
-            ->with('success', 'Reminder deleted successfully!');
+        return response()->json([
+            'success' => true,
+            'message' => 'Reminder deleted successfully!'
+        ]);
     }
 } 

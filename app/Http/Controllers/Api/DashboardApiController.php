@@ -31,6 +31,7 @@ class DashboardApiController extends Controller
                     'name' => $reminder->name,
                     'expiry_date' => $reminder->expiry_date,
                     'days_left' => Carbon::parse($reminder->expiry_date)->diffInDays(Carbon::now()),
+                    'lead_time' => $reminder->alert_days_before,
                     'category' => $reminder->category,
                     'notification_method' => $reminder->notification_method
                 ];
@@ -48,6 +49,7 @@ class DashboardApiController extends Controller
                     'name' => $reminder->name,
                     'expiry_date' => $reminder->expiry_date,
                     'days_until_expiry' => Carbon::parse($reminder->expiry_date)->diffInDays(Carbon::now()),
+                    'lead_time' => $reminder->alert_days_before,
                     'category' => $reminder->category
                 ];
             });
