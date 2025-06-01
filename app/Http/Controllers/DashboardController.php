@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
+class DashboardController extends Controller
+{
+    /**
+     * Display the dashboard
+     */
+    public function index()
+    {
+        $user = Auth::user();
+        
+        // Get reminders expiring soon
+        $expiringSoon = $user->reminders()
+            ->whereRaw('DATEDIFF(expiry_date, CURDATE()) <= alert_days_before')
+            ->orderBy('expiry_date', 'asc')
+            ->take(5)
+            ->get();
+        
+        // Get upcoming reminders
+        $upcomingReminders = $user->reminders()
+            ->whereRaw('DATEDIFF(expiry_date, CURDATE()) > alert_days_before')
+            ->orderBy('expiry_date', 'asc')
+            ->take(10)
+            ->get();
+        
+        // Get stats
+        $totalReminders = $user->reminders()->count();
+        $expiringThisMonth = $user->reminders()
+            ->whereMonth('expiry_date', Carbon::now()->month)
+            ->whereYear('expiry_date', Carbon::now()->year)
+            ->count();
+        
+        return view('dashboard', compact(
+            'expiringSoon',
+            'upcomingReminders',
+            'totalReminders',
+            'expiringThisMonth'
+        ));
+    }
+} 

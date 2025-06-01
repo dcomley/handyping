@@ -1,0 +1,24 @@
+{
+    "name": "handyping",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "devDependencies": {
+        "@tailwindcss/forms": "^0.5.7",
+        "@vitejs/plugin-vue": "^4.5.0",
+        "autoprefixer": "^10.4.16",
+        "axios": "^1.6.2",
+        "laravel-vite-plugin": "^1.0.0",
+        "postcss": "^8.4.32",
+        "tailwindcss": "^3.3.6",
+        "vite": "^5.0.7",
+        "vue": "^3.3.9"
+    },
+    "dependencies": {
+        "vue-router": "^4.2.5",
+        "date-fns": "^2.30.0"
+    }
+} 
