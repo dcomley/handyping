@@ -20,6 +20,11 @@ Route::post('/verify-phone', [AuthController::class, 'verifyPhone'])->name('auth
 Route::post('/verify-code', [AuthController::class, 'verifyCode'])->name('auth.verify-code');
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
+// Login route - serves the Vue app
+Route::get('/login', function () {
+    return view('app');
+})->name('login');
+
 // Protected routes
 Route::middleware(['auth'])->group(function () {
     // Dashboard

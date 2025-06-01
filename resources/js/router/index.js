@@ -5,6 +5,7 @@ import Dashboard from '../pages/Dashboard.vue';
 import AddReminder from '../pages/AddReminder.vue';
 import EditReminder from '../pages/EditReminder.vue';
 import Login from '../pages/Login.vue';
+import TestEmail from '../pages/TestEmail.vue';
 
 const routes = [
   {
@@ -33,6 +34,12 @@ const routes = [
     path: '/reminders/:id/edit',
     name: 'edit-reminder',
     component: EditReminder,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/test-email',
+    name: 'test-email',
+    component: TestEmail,
     meta: { requiresAuth: true }
   }
 ];

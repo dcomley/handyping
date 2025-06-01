@@ -5,9 +5,14 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center py-6">
           <h1 class="text-2xl font-bold text-gray-900">HandyPing</h1>
-          <button @click="logout" class="text-sm text-gray-600 hover:text-gray-900">
-            Logout
-          </button>
+          <div class="flex items-center space-x-4">
+            <button @click="goToTestEmail" class="text-sm text-gray-600 hover:text-gray-900">
+              Test Email
+            </button>
+            <button @click="logout" class="text-sm text-gray-600 hover:text-gray-900">
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     </header>
@@ -122,6 +127,10 @@ export default {
       }
     };
 
+    const goToTestEmail = () => {
+      router.push('/test-email');
+    };
+
     onMounted(() => {
       fetchDashboardData();
     });
@@ -132,7 +141,8 @@ export default {
       upcomingReminders,
       addReminder,
       editReminder,
-      logout
+      logout,
+      goToTestEmail
     };
   }
 };

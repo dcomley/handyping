@@ -17,8 +17,11 @@ class DashboardApiController extends Controller
         $user = Auth::user();
         
         // Get reminders expiring soon
+        // Use SQLite-compatible query
+        $today = Carbon::now()->toDateString();
         $expiringSoon = $user->reminders()
-            ->whereRaw('DATEDIFF(expiry_date, CURDATE()) <= alert_days_before')
+            ->whereRaw("julianday(expiry_date) - julianday(?) <= alert_days_before", [$today])
+            ->whereRaw("julianday(expiry_date) - julianday(?) >= 0", [$today])
             ->orderBy('expiry_date', 'asc')
             ->take(5)
             ->get()
@@ -35,7 +38,7 @@ class DashboardApiController extends Controller
         
         // Get upcoming reminders
         $upcomingReminders = $user->reminders()
-            ->whereRaw('DATEDIFF(expiry_date, CURDATE()) > alert_days_before')
+            ->whereRaw("julianday(expiry_date) - julianday(?) > alert_days_before", [$today])
             ->orderBy('expiry_date', 'asc')
             ->take(10)
             ->get()

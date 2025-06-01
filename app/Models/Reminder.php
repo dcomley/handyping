@@ -85,7 +85,8 @@ class Reminder extends Model
      */
     public function scopeExpiringSoon($query)
     {
-        return $query->whereRaw('DATEDIFF(expiry_date, CURDATE()) <= alert_days_before')
-                     ->whereRaw('DATEDIFF(expiry_date, CURDATE()) >= 0');
+        $today = Carbon::now()->toDateString();
+        return $query->whereRaw("julianday(expiry_date) - julianday(?) <= alert_days_before", [$today])
+                     ->whereRaw("julianday(expiry_date) - julianday(?) >= 0", [$today]);
     }
 } 

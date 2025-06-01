@@ -169,14 +169,34 @@ export default {
       saving.value = true;
       
       try {
+        console.log('Submitting form data:', form.value);
         const response = await axios.post('/reminders', form.value);
+        console.log('Response received:', response);
         
-        if (response.data.success) {
+        // The API should return a success response
+        if (response.status === 201 || response.data.success) {
+          // Show success message briefly before redirecting
+          alert('Reminder created successfully!');
           router.push('/dashboard');
         }
       } catch (error) {
         console.error('Error saving reminder:', error);
-        alert('Error saving reminder. Please try again.');
+        console.error('Error response:', error.response);
+        
+        // Check for validation errors
+        if (error.response?.status === 422) {
+          const validationErrors = error.response.data.errors;
+          let errorMessage = 'Validation errors:\n';
+          for (const field in validationErrors) {
+            errorMessage += `${field}: ${validationErrors[field].join(', ')}\n`;
+          }
+          alert(errorMessage);
+        } else if (error.response?.status === 401) {
+          alert('Your session has expired. Please log in again.');
+          router.push('/login');
+        } else {
+          alert(error.response?.data?.message || 'Error saving reminder. Please try again.');
+        }
       } finally {
         saving.value = false;
       }

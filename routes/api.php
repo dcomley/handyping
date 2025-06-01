@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ReminderApiController;
 use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\DashboardApiController;
+use App\Http\Controllers\Api\TestEmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // Reminder API routes
     Route::apiResource('reminders', ReminderApiController::class);
     Route::get('/reminders/expiring-soon', [ReminderApiController::class, 'expiringSoon']);
+    
+    // Test email
+    Route::post('/test-email', [TestEmailController::class, 'sendTestEmail']);
     
     // Logout
     Route::post('/logout', [AuthApiController::class, 'logout']);

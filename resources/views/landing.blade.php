@@ -37,10 +37,10 @@
 
             <!-- CTA Buttons -->
             <div class="space-y-4">
-                <a href="/dashboard" class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200">
+                <a href="/login" class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200">
                     Add Reminder
                 </a>
-                <a href="/dashboard" class="block w-full bg-gray-200 hover:bg-gray-300 text-gray-900 font-semibold py-3 px-6 rounded-lg transition duration-200">
+                <a href="/login" class="block w-full bg-gray-200 hover:bg-gray-300 text-gray-900 font-semibold py-3 px-6 rounded-lg transition duration-200">
                     Start Free Trial
                 </a>
             </div>
