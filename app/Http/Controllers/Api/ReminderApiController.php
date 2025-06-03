@@ -138,8 +138,9 @@ class ReminderApiController extends Controller
      */
     public function expiringSoon()
     {
+        // Use the model scope to remain compatible with both MySQL and SQLite
         $reminders = Auth::user()->reminders()
-            ->whereRaw('DATEDIFF(expiry_date, CURDATE()) <= alert_days_before')
+            ->expiringSoon()
             ->orderBy('expiry_date', 'asc')
             ->get();
             

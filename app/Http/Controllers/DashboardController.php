@@ -16,8 +16,10 @@ class DashboardController extends Controller
         $user = Auth::user();
         
         // Get reminders expiring soon
+        $today = Carbon::now()->toDateString();
         $expiringSoon = $user->reminders()
-            ->whereRaw('DATEDIFF(expiry_date, CURDATE()) <= alert_days_before')
+            ->whereRaw("julianday(expiry_date) - julianday(?) <= alert_days_before", [$today])
+            ->whereRaw("julianday(expiry_date) - julianday(?) >= 0", [$today])
             ->orderBy('expiry_date', 'asc')
             ->take(5)
             ->get()
@@ -26,10 +28,10 @@ class DashboardController extends Controller
                 $reminder->lead_time = $reminder->alert_days_before;
                 return $reminder;
             });
-        
+
         // Get upcoming reminders
         $upcomingReminders = $user->reminders()
-            ->whereRaw('DATEDIFF(expiry_date, CURDATE()) > alert_days_before')
+            ->whereRaw("julianday(expiry_date) - julianday(?) > alert_days_before", [$today])
             ->orderBy('expiry_date', 'asc')
             ->take(10)
             ->get()
