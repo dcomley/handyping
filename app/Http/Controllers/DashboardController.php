@@ -17,7 +17,7 @@ class DashboardController extends Controller
         
         // Get reminders expiring soon
         $expiringSoon = $user->reminders()
-            ->whereRaw('DATEDIFF(expiry_date, CURDATE()) <= alert_days_before')
+            ->expiringSoon()
             ->orderBy('expiry_date', 'asc')
             ->take(5)
             ->get()
@@ -29,7 +29,7 @@ class DashboardController extends Controller
         
         // Get upcoming reminders
         $upcomingReminders = $user->reminders()
-            ->whereRaw('DATEDIFF(expiry_date, CURDATE()) > alert_days_before')
+            ->upcoming()
             ->orderBy('expiry_date', 'asc')
             ->take(10)
             ->get()
