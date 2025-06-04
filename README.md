@@ -89,21 +89,21 @@ php artisan db:seed
 npm run build
 ```
 
-6. **Set up Stripe (for subscriptions)**:
+10. **Set up Stripe (for subscriptions)**:
    - See [STRIPE_SETUP.md](STRIPE_SETUP.md) for detailed instructions
    - Add your Stripe keys to `.env`
 
-7. **Start the development server**:
+11. **Start the development server**:
 ```bash
 php artisan serve
 ```
 
-2. In a separate terminal, run Vite for frontend development:
+12. In a separate terminal, run Vite for frontend development:
 ```bash
 npm run dev
 ```
 
-3. Visit `http://localhost:8000` in your browser
+13. Visit `http://localhost:8000` in your browser
 
 ## Demo Login
 
