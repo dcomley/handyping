@@ -1,6 +1,6 @@
 # HandyPing
 
-Never forget another licence renewal - Simple SMS + email reminder tool for sole traders and mobile tradies.
+Never forget another license renewal - Simple SMS + email reminder tool for sole traders and mobile tradies.
 
 ## Features
 

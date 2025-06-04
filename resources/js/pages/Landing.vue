@@ -21,7 +21,7 @@
     <section class="pt-20 pb-16 px-4">
       <div class="max-w-7xl mx-auto text-center">
         <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-          Never forget another<br>licence renewal
+          Never forget another<br>license renewal
         </h1>
         <p class="text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto">
           Simple SMS & email reminders for your trade licenses, insurance, and certifications. 

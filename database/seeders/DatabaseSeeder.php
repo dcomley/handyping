@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         // Create demo reminders
         $reminders = [
             [
-                'name' => 'White Card Licence',
+                'name' => 'White Card License',
                 'expiry_date' => Carbon::now()->addDays(3),
                 'alert_days_before' => 7,
                 'notification_method' => 'sms',
