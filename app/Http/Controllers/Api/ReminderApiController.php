@@ -24,7 +24,7 @@ class ReminderApiController extends Controller
         
         if ($request->has('status')) {
             if ($request->status === 'expiring_soon') {
-                $query->whereDate('expiry_date', '<=', Carbon::now()->addDays(7));
+                $query->expiringSoon();
             }
         }
         
@@ -139,7 +139,7 @@ class ReminderApiController extends Controller
     public function expiringSoon()
     {
         $reminders = Auth::user()->reminders()
-            ->whereRaw('DATEDIFF(expiry_date, CURDATE()) <= alert_days_before')
+            ->expiringSoon()
             ->orderBy('expiry_date', 'asc')
             ->get();
             

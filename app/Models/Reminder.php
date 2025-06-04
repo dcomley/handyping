@@ -81,12 +81,37 @@ class Reminder extends Model
     }
 
     /**
-     * Scope for expiring soon reminders
+     * Scope for expiring soon reminders.
+     *
+     * Uses SQLite's `julianday` function when running on SQLite and
+     * `DATEDIFF` when using other databases (e.g. MySQL).
      */
     public function scopeExpiringSoon($query)
     {
         $today = Carbon::now()->toDateString();
-        return $query->whereRaw("julianday(expiry_date) - julianday(?) <= alert_days_before", [$today])
-                     ->whereRaw("julianday(expiry_date) - julianday(?) >= 0", [$today]);
+        $driver = $query->getConnection()->getDriverName();
+
+        if ($driver === 'sqlite') {
+            return $query->whereRaw('julianday(expiry_date) - julianday(?) <= alert_days_before', [$today])
+                         ->whereRaw('julianday(expiry_date) - julianday(?) >= 0', [$today]);
+        }
+
+        return $query->whereRaw('DATEDIFF(expiry_date, ?) <= alert_days_before', [$today])
+                     ->whereRaw('DATEDIFF(expiry_date, ?) >= 0', [$today]);
+    }
+
+    /**
+     * Scope for upcoming reminders (beyond the alert window).
+     */
+    public function scopeUpcoming($query)
+    {
+        $today = Carbon::now()->toDateString();
+        $driver = $query->getConnection()->getDriverName();
+
+        if ($driver === 'sqlite') {
+            return $query->whereRaw('julianday(expiry_date) - julianday(?) > alert_days_before', [$today]);
+        }
+
+        return $query->whereRaw('DATEDIFF(expiry_date, ?) > alert_days_before', [$today]);
     }
 } 
